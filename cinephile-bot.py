@@ -1,7 +1,8 @@
-# This example requires the 'message_content' intent.
 import os
 import discord
 from discord import User
+
+actor_path = "reference/actors.txt"
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -9,6 +10,12 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 cinephile_players = []
+
+with open(actor_path, "r") as actors_file:
+    actors = actors_file.read()
+
+print(actors.split("\n"))
+    
 
 class Player:
     def __init__(self, username):
