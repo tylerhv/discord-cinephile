@@ -44,18 +44,20 @@ async def on_message(message):
         current_player_index = player_index_reference.index(message.author.name)
         cinephile_players[current_player_index].cards.remove(actor)
         last_actor_played = actor
-        print(cinephile_players[current_player_index].cards)
+        await message.channel.send(f"Current Card: {last_actor_played}")
 
     if message.content.startswith("!start"):
-        await message.channel.send(f"Distributing cards...")
+        await message.channel.send(f"Distributing cards... \nDo '!cards' to see your cards.")
         cards_to_distribute = 6
         for player in cinephile_players:
             for i in range(cards_to_distribute):
                 card = random.choice(actors)
                 player.cards.append(card)
-                actors.remove(card)
-        print(cinephile_players[0].cards)
+                actors.remove(card) 
         global current_turn
+        card = random.choice(actors)
+        await message.channel.send(f"The Current Card: {card}")
+        actors.remove(card)
         await message.channel.send(f"It's {cinephile_players[current_turn].username} turn!")
 
     if message.content.startswith("!add"):
@@ -79,6 +81,10 @@ async def on_message(message):
         x = ""
         for player in cinephile_players:
             x = f"{x}{player.username}: {player.points}"
+
+    if message.content.startswith("!cards"):
+        current_player_index = player_index_reference.index(message.author.name)
+        await message.author.send("Your cards are:\n" + "\n".join(cinephile_players[current_player_index].cards))
 
 
 client.run(os.getenv("DISCORD_TOKEN"))
