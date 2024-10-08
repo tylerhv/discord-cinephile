@@ -22,6 +22,7 @@ class Player:
     def __init__(self, username):
         self.username = username
         self.cards = []
+        self.points = 0
 
 @client.event
 async def on_ready():
@@ -32,20 +33,20 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content == "!Join":
+    if message.content == "!join":
         cinephile_players.append(Player(message.author.name))
         player_index_reference.append(message.author.name)
         await message.channel.send(f"{message.author} has joined the game")
         print(cinephile_players)
         
-    if message.content.startswith("!Play"):
+    if message.content.startswith("!play"):
         actor = " ".join(message.content.split()[1:])
         current_player_index = player_index_reference.index(message.author.name)
         cinephile_players[current_player_index].cards.remove(actor)
         last_actor_played = actor
         print(cinephile_players[current_player_index].cards)
 
-    if message.content.startswith("!Start"):
+    if message.content.startswith("!start"):
         await message.channel.send(f"Distributing cards...")
         cards_to_distribute = 6
         for player in cinephile_players:
@@ -54,7 +55,19 @@ async def on_message(message):
                 player.cards.append(card)
                 actors.remove(card)
         print(cinephile_players[0].cards)
-                  
+
+    if message.content.startswith("!add"):
+        points = int(message.content.split()[1:][0]) #retrieve the number that was passed into the command
+        current_player_index = player_index_reference.index(message.author.name)
+        cinephile_players[current_player_index].points += points
+        print(cinephile_players[current_player_index].points)
+
+    if message.content.startswith("!subtract"):
+        points = int(message.content.split()[1:][0]) #retrieve the number that was passed into the command
+        current_player_index = player_index_reference.index(message.author.name)
+        cinephile_players[current_player_index].points +- points
+        print(cinephile_players[current_player_index].points)
+
 
 
 client.run(os.getenv("DISCORD_TOKEN"))
