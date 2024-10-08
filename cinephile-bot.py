@@ -11,12 +11,12 @@ actor_path = "reference/actors.txt"
 cinephile_players = []
 player_index_reference = []
 last_actor_played = ""
+current_turn = 0
 
 with open(actor_path, "r") as actors_file:
     actors = actors_file.read().split("\n")
 
 index = [i for i in range(len(actors))]
-
 
 class Player:
     def __init__(self, username):
@@ -55,6 +55,8 @@ async def on_message(message):
                 player.cards.append(card)
                 actors.remove(card)
         print(cinephile_players[0].cards)
+        global current_turn
+        await message.channel.send(f"It's {cinephile_players[current_turn].username} turn!")
 
     if message.content.startswith("!add"):
         points = int(message.content.split()[1:][0]) #retrieve the number that was passed into the command
@@ -68,6 +70,15 @@ async def on_message(message):
         cinephile_players[current_player_index].points +- points
         print(cinephile_players[current_player_index].points)
 
+    if message.content.startswith("!next"):
+        current_turn = (current_turn + 1) % len(cinephile_players)
+        await message.channel.send(f"It's {cinephile_players[current_turn].username} turn!")
+
+    if message.content.startswith("!end"):
+        await message.channel.send(f"Game over!")
+        x = ""
+        for player in cinephile_players:
+            x = f"{x}{player.username}: {player.points}"
 
 
 client.run(os.getenv("DISCORD_TOKEN"))
