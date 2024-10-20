@@ -1,7 +1,7 @@
 Robert De Niro
 Al Pacino
 Robert Pattinson
-Saorise Ronan
+Saoirse Ronan
 Megan Fox
 Cate Blanchett
 Rooney Mara
@@ -75,7 +75,7 @@ Ewan McGregor
 Orlando Bloom
 Song Kang Ho
 Tony Leung Chiu Wai
-Andy Lau
+Chow Yun-fat
 Ken Watanabe
 Javier Bardem
 Benicio Del Toro
@@ -94,7 +94,6 @@ Jodie Foster
 Rachel McAdams
 Emma Stone
 Jennifer Lawrence
-Marilyn Monroe
 Julie Delpy
 Keira Knightley
 Anne Hathaway
@@ -121,7 +120,6 @@ Carey Mulligan
 Julia Louis-Dreyfus
 Emily Blunt
 Felicity Jones
-Grace Kelly
 Viola Davis
 Naomi Watts
 Carrie Fisher
@@ -163,4 +161,25 @@ Toni Collette
 Lucy Liu
 Chloe Sevingy
 Amanda Seyfried
-Brenda Song
+Angela Bassett
+Penélope Cruz
+Adam Driver
+Oscar Isaac
+Timothee Chalamet
+Andrew Garfield
+Simon Pegg
+David Bowie
+Kristen Stewart
+Daniel Day-Lewis
+Jesse Plemons
+Olivia Colman
+Nicolas Cage
+Benny Safdie
+Adam Sandler
+Margaret Qualley
+Zendaya
+Mia Goth
+Jason Schwartzman
+Jeffrey Wright
+Andy Serkis
+Paul Dano
