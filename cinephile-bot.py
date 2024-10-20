@@ -97,6 +97,16 @@ async def on_message(message):
         current_player_index = player_index_reference.index(message.author.name)
         await message.author.send("Your cards are:\n" + "\n".join(cinephile_players[current_player_index].cards))
 
+    if message.content.startswith("!shuffle"):
+        actor = " ".join(message.content.split()[1:])
+        current_player_index = player_index_reference.index(message.author.name)
+        card = random.choice(actors)
+        cinephile_players[current_player_index].cards.append(card)
+        actors.remove(card)
+        actors.append(actor)
+        cinephile_players[current_player_index].cards.remove(actor)
+        await message.author.send(f"You replaceed {actor} for {card}!")     
+  
     if message.content.startswith("!help"):
         await message.author.send(command_list)
 
