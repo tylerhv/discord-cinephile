@@ -8,10 +8,13 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 actor_path = "reference/actors.txt"
+help_path = "reference/help.txt"
 cinephile_players = []
 player_index_reference = []
 last_actor_played = ""
 current_turn = 0
+with open(help_path, "r") as f:
+    command_list = f.read()
 
 with open(actor_path, "r") as actors_file:
     actors = actors_file.read().split("\n")
@@ -81,10 +84,16 @@ async def on_message(message):
         x = ""
         for player in cinephile_players:
             x = f"{x}{player.username}: {player.points}"
+        await message.channel.send(x)        
 
     if message.content.startswith("!cards"):
         current_player_index = player_index_reference.index(message.author.name)
         await message.author.send("Your cards are:\n" + "\n".join(cinephile_players[current_player_index].cards))
+
+    if message.content.startswith("!help"):
+        await message.author.send(command_list)
+
+
 
 
 client.run(os.getenv("DISCORD_TOKEN"))
