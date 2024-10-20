@@ -67,13 +67,13 @@ async def on_message(message):
         points = int(message.content.split()[1:][0]) #retrieve the number that was passed into the command
         current_player_index = player_index_reference.index(message.author.name)
         cinephile_players[current_player_index].points += points
-        print(cinephile_players[current_player_index].points)
+        await message.channel.send(f"{message.author.name} has {cinephile_players[current_player_index].points} points!")
 
     if message.content.startswith("!subtract"):
         points = int(message.content.split()[1:][0]) #retrieve the number that was passed into the command
         current_player_index = player_index_reference.index(message.author.name)
-        cinephile_players[current_player_index].points +- points
-        print(cinephile_players[current_player_index].points)
+        cinephile_players[current_player_index].points -= points
+        await message.channel.send(f"{message.author.name} has {cinephile_players[current_player_index].points} points!")
 
     if message.content.startswith("!next"):
         current_turn = (current_turn + 1) % len(cinephile_players)
