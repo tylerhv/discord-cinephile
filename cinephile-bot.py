@@ -84,7 +84,14 @@ async def on_message(message):
         x = ""
         for player in cinephile_players:
             x = f"{x}{player.username}: {player.points}"
-        await message.channel.send(x)        
+        await message.channel.send(x)
+
+    if message.content.startswith("!score"):
+        await message.channel.send(f"Current Score:")
+        x = ""
+        for player in cinephile_players:
+            x = f"{x}{player.username}: {player.points}"
+        await message.channel.send(x)  
 
     if message.content.startswith("!cards"):
         current_player_index = player_index_reference.index(message.author.name)
