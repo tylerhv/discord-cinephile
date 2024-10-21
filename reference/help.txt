@@ -1,0 +1,7 @@
+Here are the list of commands:
+!play <actor name> - Play the actor from your hand
+!add <number> - The number of connections you made in order to play the actor
+!next - Goes to the next player
+!start - Start the game
+!end - Ends the game once everyone goes
+!cards - See the cards in your hand
