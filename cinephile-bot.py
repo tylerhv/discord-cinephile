@@ -90,7 +90,7 @@ async def on_message(message):
         await message.channel.send(f"Current Score:")
         x = ""
         for player in cinephile_players:
-            x = f"{x}{player.username}: {player.points}"
+            x = f"{x}{player.username}: {player.points}\n"
         await message.channel.send(x)  
 
     if message.content.startswith("!cards"):
