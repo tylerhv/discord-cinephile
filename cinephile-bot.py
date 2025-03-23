@@ -3,6 +3,7 @@ import discord
 from discord import User
 from classes.Player import Player
 from utils.verify_state import verify_state
+from utils.verify_player import verify_player
 import random
 
 intents = discord.Intents.default()
@@ -31,6 +32,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     global state
+    global current_turn
     if message.author == client.user:
         return
 
@@ -45,10 +47,14 @@ async def on_message(message):
         print(cinephile_players)
         
     if message.content.startswith("!play"):
-        check = verify_state(state, "cinephiles")
-        if check == False:
+        state_check = verify_state(state, "cinephiles")
+        player_check = verify_player(message.author, cinephile_players[current_turn].username)
+        if state_check == False:
             await message.channel.send(f"You cannot use that command right now!")
             return None
+        if player_check == False:
+            await message.channel.send(f"It's not your turn right now!")
+            return None 
         actor = " ".join(message.content.split()[1:])
         current_player_index = player_index_reference.index(message.author.name)
         cinephile_players[current_player_index].cards.remove(actor)
@@ -67,8 +73,7 @@ async def on_message(message):
             for i in range(cards_to_distribute):
                 card = random.choice(actors)
                 player.cards.append(card)
-                actors.remove(card) 
-        global current_turn
+                actors.remove(card)
         card = random.choice(actors)
         await message.channel.send(f"The Current Card: {card}")
         actors.remove(card)
@@ -96,9 +101,13 @@ async def on_message(message):
 
     if message.content.startswith("!next"):
         check = verify_state(state, "cinephiles")
+        player_check = verify_player(message.author, cinephile_players[current_turn].username)
         if check == False:
             await message.channel.send(f"You cannot use that command right now!")
             return None
+        if player_check == False:
+            await message.channel.send(f"It's not your turn right now!")
+            return None 
         current_turn = (current_turn + 1) % len(cinephile_players)
         await message.channel.send(f"It's {cinephile_players[current_turn].username} turn!")
 
