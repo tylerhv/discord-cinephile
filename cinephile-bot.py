@@ -1,12 +1,12 @@
 import os
 import discord
 from discord import User
+from classes.Player import Player
 import random
 
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
-
 actor_path = "reference/actors.txt"
 help_path = "reference/help.txt"
 cinephile_players = []
@@ -26,6 +26,7 @@ class Player:
         self.username = username
         self.cards = []
         self.points = 0
+# I want only some commands to be available during certain game states.
 
 @client.event
 async def on_ready():
