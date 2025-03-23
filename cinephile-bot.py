@@ -4,6 +4,7 @@ from discord import User
 from classes.Player import Player
 from utils.verify_state import verify_state
 from utils.verify_player import verify_player
+from utils.verify_actor import verify_actor
 import random
 
 intents = discord.Intents.default()
@@ -57,6 +58,13 @@ async def on_message(message):
             return None 
         actor = " ".join(message.content.split()[1:])
         current_player_index = player_index_reference.index(message.author.name)
+
+        actor_check = verify_actor(actor, cinephile_players[current_player_index].cards)
+
+        if actor_check == False:
+            await message.channel.send(f"Invalid actor name!")
+            return None
+
         cinephile_players[current_player_index].cards.remove(actor)
         last_actor_played = actor
         await message.channel.send(f"Current Card: {last_actor_played}")
@@ -144,11 +152,19 @@ async def on_message(message):
 
     if message.content.startswith("!shuffle"):
         check = verify_state(state, "cinephiles")
+
         if check == False:
             await message.channel.send(f"You cannot use that command right now!")
             return None
+        
         actor = " ".join(message.content.split()[1:])
         current_player_index = player_index_reference.index(message.author.name)
+        actor_check = verify_actor(actor, cinephile_players[current_player_index].cards)
+
+        if actor_check == False:
+            await message.channel.send(f"Invalid actor name!")
+            return None
+
         card = random.choice(actors)
         cinephile_players[current_player_index].cards.append(card)
         actors.remove(card)
