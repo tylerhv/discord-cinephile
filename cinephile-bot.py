@@ -21,11 +21,6 @@ with open(actor_path, "r") as actors_file:
 
 index = [i for i in range(len(actors))]
 
-class Player:
-    def __init__(self, username):
-        self.username = username
-        self.cards = []
-        self.points = 0
 # I want only some commands to be available during certain game states.
 
 @client.event
