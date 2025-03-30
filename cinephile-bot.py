@@ -49,7 +49,7 @@ async def on_message(message):
         
     if message.content.startswith("!play"):
         state_check = verify_state(state, "cinephiles")
-        player_check = verify_player(message.author, cinephile_players[current_turn].username)
+        player_check = verify_player(message.author.name, cinephile_players[current_turn].username)
         if state_check == False:
             await message.channel.send(f"You cannot use that command right now!")
             return None
@@ -109,7 +109,7 @@ async def on_message(message):
 
     if message.content.startswith("!next"):
         check = verify_state(state, "cinephiles")
-        player_check = verify_player(message.author, cinephile_players[current_turn].username)
+        player_check = verify_player(message.author.name, cinephile_players[current_turn].username)
         if check == False:
             await message.channel.send(f"You cannot use that command right now!")
             return None
