@@ -7,6 +7,8 @@ from utils.verify_player import verify_player
 from utils.verify_actor import verify_actor
 from commands.join import join_game
 from commands.play import play_card
+from commands.start import start_game
+from commands.scores import add_score, subtract_score, display_score
 import random
 
 intents = discord.Intents.default()
@@ -27,6 +29,7 @@ with open(actor_path, "r") as actors_file:
 index = [i for i in range(len(actors))]
 
 state = "main_menu"
+print(type(actors))
 
 @client.event
 async def on_ready():
@@ -39,6 +42,8 @@ async def on_message(message):
     global cinephile_players
     global player_index_reference
     global last_actor_played
+    global actors
+
     if message.author == client.user:
         return
 
@@ -51,42 +56,16 @@ async def on_message(message):
         return
 
     if message.content.startswith("!start"):
-        check = verify_state(state, "main_menu")
-        if check == False:
-            await message.channel.send(f"You cannot use that command right now!")
-            return None
-        await message.channel.send(f"Distributing cards... \nDo '!cards' to see your cards.")
-        state = "cinephiles"
-        cards_to_distribute = 6
-        for player in cinephile_players:
-            for i in range(cards_to_distribute):
-                card = random.choice(actors)
-                player.cards.append(card)
-                actors.remove(card)
-        card = random.choice(actors)
-        await message.channel.send(f"The Current Card: {card}")
-        actors.remove(card)
-        await message.channel.send(f"It's {cinephile_players[current_turn].username} turn!")
+        state = await start_game(message, state, cinephile_players, actors, current_turn)
+        return
 
     if message.content.startswith("!add"):
-        check = verify_state(state, "cinephiles")
-        if check == False:
-            await message.channel.send(f"You cannot use that command right now!")
-            return None
-        points = int(message.content.split()[1:][0]) #retrieve the number that was passed into the command
-        current_player_index = player_index_reference.index(message.author.name)
-        cinephile_players[current_player_index].points += points
-        await message.channel.send(f"{message.author.name} has {cinephile_players[current_player_index].points} points!")
+        await add_score(message, state, player_index_reference, cinephile_players)
+        return
 
     if message.content.startswith("!subtract"):
-        check = verify_state(state, "cinephiles")
-        if check == False:
-            await message.channel.send(f"You cannot use that command right now!")
-            return None
-        points = int(message.content.split()[1:][0]) #retrieve the number that was passed into the command
-        current_player_index = player_index_reference.index(message.author.name)
-        cinephile_players[current_player_index].points -= points
-        await message.channel.send(f"{message.author.name} has {cinephile_players[current_player_index].points} points!")
+        await subtract_score(message, state, player_index_reference, cinephile_players)
+        return
 
     if message.content.startswith("!next"):
         check = verify_state(state, "cinephiles")
@@ -117,17 +96,12 @@ async def on_message(message):
         await message.channel.send(x)
 
     if message.content.startswith("!score"):
-        check = verify_state(state, "cinephiles")
-        if check == False:
-            await message.channel.send(f"You cannot use that command right now!")
-            return None
-        await message.channel.send(f"Current Score:")
-        x = ""
-        for player in cinephile_players:
-            x = f"{x}{player.username}: {player.points}\n"
-        await message.channel.send(x)  
+        print(state)
+        await display_score(message, state, cinephile_players)
+        return
 
     if message.content.startswith("!cards"):
+        print(state)
         check = verify_state(state, "cinephiles")
         if check == False:
             await message.channel.send(f"You cannot use that command right now!")
