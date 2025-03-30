@@ -4,7 +4,7 @@ import random
 async def start_game(message, state, cinephile_players, actors, current_turn):
     if not verify_state(state, "main_menu"):
         await message.channel.send(f"You cannot use that command right now!")
-        return None
+        return state
     await message.channel.send(f"Distributing cards... \nDo '!cards' to see your cards.")
     state = "cinephiles"
     cards_to_distribute = 6

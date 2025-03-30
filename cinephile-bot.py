@@ -9,6 +9,7 @@ from commands.join import join_game
 from commands.play import play_card
 from commands.start import start_game
 from commands.scores import add_score, subtract_score, display_score
+from commands.next import next_turn
 import random
 
 intents = discord.Intents.default()
@@ -68,16 +69,8 @@ async def on_message(message):
         return
 
     if message.content.startswith("!next"):
-        check = verify_state(state, "cinephiles")
-        player_check = verify_player(message.author.name, cinephile_players[current_turn].username)
-        if check == False:
-            await message.channel.send(f"You cannot use that command right now!")
-            return None
-        if player_check == False:
-            await message.channel.send(f"It's not your turn right now!")
-            return None 
-        current_turn = (current_turn + 1) % len(cinephile_players)
-        await message.channel.send(f"It's {cinephile_players[current_turn].username} turn!")
+        current_turn = await next_turn(message, state, current_turn, cinephile_players)
+        return
 
     if message.content.startswith("!end"):
         check = verify_state(state, "cinephiles")
