@@ -34,6 +34,9 @@ async def on_ready():
 async def on_message(message):
     global state
     global current_turn
+    global cinephile_players
+    global player_index_reference
+    global last_actor_played
     if message.author == client.user:
         return
 
@@ -129,6 +132,10 @@ async def on_message(message):
         state = "main_menu"
         for player in cinephile_players:
             x = f"{x}{player.username}: {player.points}\n"
+        cinephile_players = []
+        player_index_reference = []
+        last_actor_played = ""
+        current_turn = 0
         await message.channel.send(x)
 
     if message.content.startswith("!score"):
