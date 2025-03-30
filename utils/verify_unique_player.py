@@ -4,4 +4,4 @@ def verify_unique_player(player, player_list):
     if player in player_list:
         return False
     else:
-        True
+        return True

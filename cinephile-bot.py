@@ -5,7 +5,7 @@ from classes.Player import Player
 from utils.verify_state import verify_state
 from utils.verify_player import verify_player
 from utils.verify_actor import verify_actor
-from utils.verify_unique_player import verify_unique_player
+from commands.join import join_game
 import random
 
 intents = discord.Intents.default()
@@ -42,19 +42,8 @@ async def on_message(message):
         return
 
     if message.content == "!join":
-        check = verify_state(state, "main_menu")
-        unique_player_check = verify_unique_player(message.author.name, player_index_reference)
-        if check == False:
-            await message.channel.send(f"You cannot use that command right now!")
-            return None
-        if unique_player_check == False:
-            await message.channel.send(f"You are already in the game!")
-            return None
-
-        cinephile_players.append(Player(message.author.name))
-        player_index_reference.append(message.author.name)
-        await message.channel.send(f"{message.author} has joined the game")
-        print(cinephile_players)
+        await join_game(message, state, cinephile_players, player_index_reference)
+        return
         
     if message.content.startswith("!play"):
         state_check = verify_state(state, "cinephiles")
