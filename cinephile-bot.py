@@ -2,9 +2,6 @@ import os
 import discord
 from discord import User
 from classes.Player import Player
-from utils.verify_state import verify_state
-from utils.verify_player import verify_player
-from utils.verify_actor import verify_actor
 from commands.join import join_game
 from commands.play import play_card
 from commands.start import start_game
@@ -12,7 +9,7 @@ from commands.scores import add_score, subtract_score, display_score
 from commands.next import next_turn
 from commands.end import end_game
 from commands.cards import cards
-import random
+from commands.shuffle import shuffle_cards
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -87,26 +84,8 @@ async def on_message(message):
         return
 
     if message.content.startswith("!shuffle"):
-        check = verify_state(state, "cinephiles")
-
-        if check == False:
-            await message.channel.send(f"You cannot use that command right now!")
-            return None
-        
-        actor = " ".join(message.content.split()[1:])
-        current_player_index = player_index_reference.index(message.author.name)
-        actor_check = verify_actor(actor, cinephile_players[current_player_index].cards)
-
-        if actor_check == False:
-            await message.channel.send(f"Invalid actor name!")
-            return None
-
-        card = random.choice(actors)
-        cinephile_players[current_player_index].cards.append(card)
-        actors.remove(card)
-        actors.append(actor)
-        cinephile_players[current_player_index].cards.remove(actor)
-        await message.author.send(f"You replaceed {actor} for {card}!")     
+        await shuffle_cards(message, state, cinephile_players, player_index_reference, actors)
+        return
   
     if message.content.startswith("!help"):
         await message.author.send(command_list)
