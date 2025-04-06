@@ -5,10 +5,11 @@ async def start_game(message, state, cinephile_players, actors, current_turn):
     if not verify_state(state, "main_menu"):
         await message.channel.send(f"You cannot use that command right now!")
         return state
-    await message.channel.send(f"Distributing cards... \nDo '!cards' to see your cards.")
     if len(cinephile_players) == 0:
         await message.channel.send(f"You must have at least 1 player to start the game!")
         return state
+    
+    await message.channel.send(f"Distributing cards... \nDo '!cards' to see your cards.")
     state = "cinephiles"
     cards_to_distribute = 6
     for player in cinephile_players:
