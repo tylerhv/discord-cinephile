@@ -10,6 +10,7 @@ from commands.play import play_card
 from commands.start import start_game
 from commands.scores import add_score, subtract_score, display_score
 from commands.next import next_turn
+from commands.end import end_game
 import random
 
 intents = discord.Intents.default()
@@ -27,10 +28,10 @@ with open(help_path, "r") as f:
 with open(actor_path, "r") as actors_file:
     actors = actors_file.read().split("\n")
 
+refresh_actors = actors
 index = [i for i in range(len(actors))]
 
 state = "main_menu"
-print(type(actors))
 
 @client.event
 async def on_ready():
@@ -73,21 +74,9 @@ async def on_message(message):
         return
 
     if message.content.startswith("!end"):
-        check = verify_state(state, "cinephiles")
-        if check == False:
-            await message.channel.send(f"You cannot use that command right now!")
-            return None
-        await message.channel.send(f"Game over!")
-        x = ""
-        state = "main_menu"
-        for player in cinephile_players:
-            x = f"{x}{player.username}: {player.points}\n"
-        cinephile_players = []
-        player_index_reference = []
-        last_actor_played = ""
-        current_turn = 0
-        await message.channel.send(x)
-
+        state, cinephile_players, player_index_reference, last_actor_played, current_turn, actors = await end_game(message, state, cinephile_players, player_index_reference, last_actor_played, current_turn, actors, refresh_actors)
+        return
+    
     if message.content.startswith("!score"):
         await display_score(message, state, cinephile_players)
         return
