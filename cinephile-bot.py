@@ -89,12 +89,10 @@ async def on_message(message):
         await message.channel.send(x)
 
     if message.content.startswith("!score"):
-        print(state)
         await display_score(message, state, cinephile_players)
         return
 
     if message.content.startswith("!cards"):
-        print(state)
         check = verify_state(state, "cinephiles")
         if check == False:
             await message.channel.send(f"You cannot use that command right now!")
