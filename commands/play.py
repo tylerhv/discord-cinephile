@@ -14,9 +14,7 @@ async def play_card(message, state, cinephile_players, current_turn, player_inde
     actor = " ".join(message.content.split()[1:])
     current_player_index = player_index_reference.index(message.author.name)
 
-    actor_check = verify_actor(actor, cinephile_players[current_player_index].cards)
-
-    if actor_check == False:
+    if not verify_actor(actor, cinephile_players[current_player_index].cards):
         await message.channel.send(f"Invalid actor name!")
         return None
 
