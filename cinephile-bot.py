@@ -11,6 +11,7 @@ from commands.start import start_game
 from commands.scores import add_score, subtract_score, display_score
 from commands.next import next_turn
 from commands.end import end_game
+from commands.cards import cards
 import random
 
 intents = discord.Intents.default()
@@ -82,12 +83,8 @@ async def on_message(message):
         return
 
     if message.content.startswith("!cards"):
-        check = verify_state(state, "cinephiles")
-        if check == False:
-            await message.channel.send(f"You cannot use that command right now!")
-            return None
-        current_player_index = player_index_reference.index(message.author.name)
-        await message.author.send("Your cards are:\n" + "\n".join(cinephile_players[current_player_index].cards))
+        await cards(message, state, cinephile_players, player_index_reference)
+        return
 
     if message.content.startswith("!shuffle"):
         check = verify_state(state, "cinephiles")
