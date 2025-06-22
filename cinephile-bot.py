@@ -24,7 +24,22 @@ with open(help_path, "r") as f:
     command_list = f.read()
 
 with open(actor_path, "r") as actors_file:
-    actors = actors_file.read().split("\n")
+    pre_actors = actors_file.read().split("\n")
+
+actors = []
+actor_gif_links = {}
+for actor_gif in pre_actors:
+    if ":" in actor_gif:  
+        split_item = actor_gif.split(":")
+        actor = split_item[0]
+        gif_link = split_item[1]
+        actor_gif_links.update({actor:gif_link})
+        actors.append(actor)
+    else:
+        actor = actor_gif
+        gif_link = None
+        actor_gif_links.update({actor:gif_link})
+        actors.append(actor)
 
 refresh_actors = actors
 index = [i for i in range(len(actors))]
@@ -52,7 +67,7 @@ async def on_message(message):
         return
         
     if message.content.startswith("!play"):
-        await play_card(message, state, cinephile_players, current_turn, player_index_reference)
+        await play_card(message, state, cinephile_players, current_turn, player_index_reference, actor_gif_links)
         return
 
     if message.content.startswith("!start"):
