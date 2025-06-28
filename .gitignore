@@ -1,2 +1,6 @@
 *.pyc
 scrap/class-example.py
+*.gif
+utils/__pycache__/*.pyc
+/utils/__pycache__
+/commands/__pycache__
