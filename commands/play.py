@@ -22,4 +22,7 @@ async def play_card(message, state, cinephile_players, current_turn, player_inde
     cinephile_players[current_player_index].cards.remove(actor)
     last_actor_played = actor
     await message.channel.send(f"Current Card: {last_actor_played}")
-    await message.channel.send(file=discord.File(f"reference/gifs/{last_actor_played.lower()}.gif"))
+    try:
+        await message.channel.send(file=discord.File(f"reference/gifs/{last_actor_played.lower()}.gif"))
+    except:
+        await message.channel.send(f"Sorry, no gifs for {actor} :(")
