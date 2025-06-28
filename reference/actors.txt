@@ -18,7 +18,6 @@ Tom Cruise
 Samuel L. Jackson
 Cillian Murphy
 Harrison Ford
-Johnny Depp
 Philip Seymour Hoffman
 Ralph Fiennes
 Tom Hardy
@@ -51,18 +50,15 @@ Will Smith
 Paul Giamatti
 Daniel Craig
 Guy Pearce
-Alec Baldwin
 Chiwetel Ejiofor
 Alan Rickman
-Colin Firth
 Bill Murray
 Ethan Hawke
 Jamie Foxx
 Heath Ledger
 Colin Farrell
-Jared Leto
 Mark Wahlberg
-Stellan Skarsgård
+Stellan Skarsgard
 Anthony Hopkins
 Hugh Jackman
 Laurence Fishburne
@@ -94,7 +90,6 @@ Jodie Foster
 Rachel McAdams
 Emma Stone
 Jennifer Lawrence
-Julie Delpy
 Keira Knightley
 Anne Hathaway
 Amy Adams
@@ -103,11 +98,9 @@ Emma Watson
 Jennifer Connelly
 Kate Winslet
 Marion Cotillard
-Shelley Duvall
 Jennifer Jason Leigh
 Jessica Chastain
 Julia Roberts
-Eva Green
 Lea Seydoux
 Tilda Swinton
 Vicky Krieps
@@ -117,9 +110,7 @@ Brie Larson
 Rosamund Pike
 Anna Kendrick
 Carey Mulligan
-Julia Louis-Dreyfus
 Emily Blunt
-Felicity Jones
 Viola Davis
 Naomi Watts
 Carrie Fisher
@@ -127,7 +118,6 @@ Maggie Smith
 Hailee Steinfeld
 Elizabeth Olsen
 Sharon Stone
-Blake Lively
 Rachel Weisz
 Michelle Pfeiffer
 Maggie Gyllenhaal
@@ -162,7 +152,7 @@ Lucy Liu
 Chloe Sevingy
 Amanda Seyfried
 Angela Bassett
-Penélope Cruz
+Penelope Cruz
 Adam Driver
 Oscar Isaac
 Timothee Chalamet
@@ -184,3 +174,4 @@ Jeffrey Wright
 Andy Serkis
 Paul Dano
 Steven Yeun
+Jim Carrey

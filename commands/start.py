@@ -1,5 +1,6 @@
 from utils.verify_state import verify_state
 import random
+import discord
 
 async def start_game(message, state, cinephile_players, actors, current_turn):
     if not verify_state(state, "main_menu"):
@@ -20,6 +21,10 @@ async def start_game(message, state, cinephile_players, actors, current_turn):
     card = random.choice(actors)
     await message.channel.send(f"The Current Card: {card}")
     actors.remove(card)
+    try:
+        await message.channel.send(file=discord.File(f"reference/gifs/{card.lower()}.gif"))
+    except:
+        await message.channel.send(f"Sorry, no gifs for {card} :(")
     await message.channel.send(f"It's {cinephile_players[current_turn].username} turn!")
-    
+
     return state

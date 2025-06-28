@@ -1,6 +1,7 @@
 from utils.verify_state import verify_state
 from utils.verify_player import verify_player
 from utils.verify_actor import verify_actor
+import discord
 
 async def play_card(message, state, cinephile_players, current_turn, player_index_reference):
     state_check = verify_state(state, "cinephiles")
@@ -21,3 +22,7 @@ async def play_card(message, state, cinephile_players, current_turn, player_inde
     cinephile_players[current_player_index].cards.remove(actor)
     last_actor_played = actor
     await message.channel.send(f"Current Card: {last_actor_played}")
+    try:
+        await message.channel.send(file=discord.File(f"reference/gifs/{last_actor_played.lower()}.gif"))
+    except:
+        await message.channel.send(f"Sorry, no gifs for {actor} :(")
